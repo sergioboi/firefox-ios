@@ -29687,7 +29687,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					$(TOOLCHAIN_DIR)/usr/include,
 					"\"$(SRCROOT)\"",
 					"\"$(SDKROOT)/usr/include/libxml2\"",
 					"\"$(BUILD_DIR)/Release$(EFFECTIVE_PLATFORM_NAME)/include/**\"",
@@ -30124,7 +30124,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					$(TOOLCHAIN_DIR)/usr/include,
 					"$(SRCROOT)",
 					"$(SDKROOT)/usr/include/libxml2",
 				);
@@ -30424,7 +30424,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					$(TOOLCHAIN_DIR)/usr/include,
 					"\"$(SRCROOT)\"",
 					"\"$(SDKROOT)/usr/include/libxml2\"",
 					"\"$(BUILD_DIR)/Release$(EFFECTIVE_PLATFORM_NAME)/include/**\"",
@@ -30859,7 +30859,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					$(TOOLCHAIN_DIR)/usr/include,
 					"\"$(SRCROOT)\"",
 					"\"$(SDKROOT)/usr/include/libxml2\"",
 					"\"$(BUILD_DIR)/Release$(EFFECTIVE_PLATFORM_NAME)/include/**\"",
@@ -32187,7 +32187,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					$(TOOLCHAIN_DIR)/usr/include,
 					"\"$(SRCROOT)\"",
 					"\"$(SDKROOT)/usr/include/libxml2\"",
 					"\"$(BUILD_DIR)/Release$(EFFECTIVE_PLATFORM_NAME)/include/**\"",
@@ -32485,7 +32485,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					$(TOOLCHAIN_DIR)/usr/include,
 					"\"$(SRCROOT)\"",
 					"\"$(SDKROOT)/usr/include/libxml2\"",
 					"\"$(BUILD_DIR)/Release$(EFFECTIVE_PLATFORM_NAME)/include/**\"",
@@ -32833,7 +32833,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					$(TOOLCHAIN_DIR)/usr/include,
 					"\"$(SRCROOT)\"",
 					"\"$(SDKROOT)/usr/include/libxml2\"",
 					"\"$(BUILD_DIR)/Release$(EFFECTIVE_PLATFORM_NAME)/include/**\"",
