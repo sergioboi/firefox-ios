@@ -104,7 +104,6 @@ xcodebuild \
   -project "${WORKSPACE}/firefox-ios/Client.xcodeproj" \
   -scheme Fennec \
   -configuration Fennec_Testing \
-  -sdk iphonesimulator \
   -destination "platform=iOS Simulator,name=iPhone 16,OS=26.2" \
   COMPILER_INDEX_STORE_ENABLE=NO \
   build-for-testing \
