@@ -93,6 +93,19 @@ rm -rf "${HOME}/Library/Developer/Xcode/DerivedData"
 echo "Cache status before build"
 cas-cache-cli --config "$CONFIG_FILE" status
 
+echo "=== Xcode selection ==="
+xcode-select -p
+xcodebuild -version
+
+echo "=== Effective settings ==="
+xcodebuild \
+  -project firefox-ios/Client.xcodeproj \
+  -scheme Fennec \
+  -configuration Fennec_Testing \
+  -destination 'generic/platform=iOS Simulator' \
+  -showBuildSettings |
+grep -E 'DT_TOOLCHAIN_DIR|TOOLCHAIN_DIR|HEADER_SEARCH_PATHS|SDKROOT'
+
 echo "Resolving Swift package dependencies"
 xcodebuild \
   -project "${WORKSPACE}/firefox-ios/Client.xcodeproj" \
