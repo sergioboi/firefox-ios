@@ -8,27 +8,28 @@ if [[ -z "${XCODECACHEPROG_TOKEN:-}" ]]; then
 fi
 
 WORKSPACE="${GITHUB_WORKSPACE:-$(pwd)}"
+PROJECT_DIR="${WORKSPACE}/firefox-ios"
 CREDENTIAL_NAME="${XCODECACHEPROG_CREDENTIAL_NAME:-firefox-ios}"
-CONFIG_DIR="${RUNNER_TEMP:-${TMPDIR:-/tmp}}/xcodecacheprog"
-CONFIG_FILE="${CONFIG_DIR}/XcodeRemoteCache.xcconfig"
+CONFIG_FILE="${PROJECT_DIR}/XcodeRemoteCache.xcconfig"
 DERIVED_DATA_PATH="${HOME}/DerivedData"
 
-mkdir -p "$CONFIG_DIR"
-
 echo "Configuring Xcode remote compilation cache"
-xcodecacheprog sync \
-  --credential-name "$CREDENTIAL_NAME" \
-  --credential-env XCODECACHEPROG_TOKEN
-
-echo "Writing remote cache xcconfig: ${CONFIG_FILE}"
-xcodecacheprog config > "$CONFIG_FILE"
+(
+  cd "$PROJECT_DIR"
+  xcodecacheprog sync \
+    --credential-name "$CREDENTIAL_NAME" \
+    --credential-env XCODECACHEPROG_TOKEN
+)
 
 echo "Removing Firefox DerivedData before build"
 rm -rf "$DERIVED_DATA_PATH"
 rm -rf "${HOME}/Library/Developer/Xcode/DerivedData"
 
 echo "Remote cache status before build"
-xcodecacheprog status
+(
+  cd "$PROJECT_DIR"
+  xcodecacheprog status
+)
 
 echo "=== Xcode selection ==="
 xcode-select -p
@@ -67,4 +68,7 @@ xcodebuild \
 
 echo
 echo "Remote cache status after build"
-xcodecacheprog status
+(
+  cd "$PROJECT_DIR"
+  xcodecacheprog status
+)
