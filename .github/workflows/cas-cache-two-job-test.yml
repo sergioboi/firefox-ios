@@ -31,7 +31,6 @@ jobs:
       FIREFOX_CONFIGURATION: Fennec_Testing
       FIREFOX_TEST_PLAN: UnitTest
       FIREFOX_TEST_DESTINATION: platform=iOS Simulator,name=iPhone 16,OS=26.2
-      FIREFOX_DERIVED_DATA_PATH: ${{ runner.temp }}/firefox-derived-data
 
     steps:
       - name: Print Mac machine info
@@ -58,6 +57,9 @@ jobs:
 
       - name: Check out source code
         uses: actions/checkout@v4.1.7
+
+      - name: Set Firefox DerivedData path
+        run: echo "FIREFOX_DERIVED_DATA_PATH=${RUNNER_TEMP}/firefox-derived-data" >> "${GITHUB_ENV}"
 
       - name: Select required Xcode version
         run: |
