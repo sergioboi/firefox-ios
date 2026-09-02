@@ -2,14 +2,14 @@
 
 set -euo pipefail
 
-WORKSPACE="${GITHUB_WORKSPACE:-$(pwd)}"
+WORKSPACE="${GITHUB_WORKSPACE:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}"
 CACHE_DIR="${WORKSPACE}/.ci/cas-build-cache"
 STATE_DIR="${RUNNER_TEMP:-${TMPDIR:-/tmp}}/cas-build-cache"
 CONFIG_FILE="${STATE_DIR}/config.toml"
 SOCKET_PATH="${HOME}/.local/state/cas-build-cache/cache.sock"
 EXPORT_DIR="${STATE_DIR}/exports"
 SERVER_LOG="${STATE_DIR}/server.log"
-DERIVED_DATA_PATH="${HOME}/DerivedData"
+DERIVED_DATA_PATH="${FIREFOX_DERIVED_DATA_PATH:-${HOME}/DerivedData}"
 
 mkdir -p "$CACHE_DIR"
 mkdir -p "$STATE_DIR"
@@ -99,9 +99,9 @@ xcodebuild -version
 
 echo "=== Effective settings ==="
 xcodebuild \
-  -project firefox-ios/Client.xcodeproj \
-  -scheme Fennec \
-  -configuration Fennec_Testing \
+  -project "${WORKSPACE}/firefox-ios/Client.xcodeproj" \
+  -scheme "${FIREFOX_SCHEME:-Fennec}" \
+  -configuration "${FIREFOX_CONFIGURATION:-Fennec_Testing}" \
   -destination 'generic/platform=iOS Simulator' \
   -showBuildSettings |
 grep -E 'DT_TOOLCHAIN_DIR|TOOLCHAIN_DIR|HEADER_SEARCH_PATHS|SDKROOT'
@@ -113,18 +113,7 @@ xcodebuild \
   -onlyUsePackageVersionsFromResolvedFile
 
 echo "Running Firefox build-for-testing"
-xcodebuild \
-  -project "${WORKSPACE}/firefox-ios/Client.xcodeproj" \
-  -scheme Fennec \
-  -configuration Fennec_Testing \
-  -destination "platform=iOS Simulator,name=iPhone 16,OS=26.2" \
-  COMPILER_INDEX_STORE_ENABLE=NO \
-  build-for-testing \
-  CODE_SIGN_IDENTITY= \
-  CODE_SIGNING_REQUIRED=NO \
-  CODE_SIGNING_ALLOWED=NO \
-  -derivedDataPath "$DERIVED_DATA_PATH" \
-  -skipMacroValidation \
+"${WORKSPACE}/.github/scripts/run-firefox-build-for-testing.sh" \
   COMPILATION_CACHE_ENABLE_CACHING=YES \
   COMPILATION_CACHE_ENABLE_PLUGIN=YES \
   COMPILATION_CACHE_REMOTE_SERVICE_PATH="$SOCKET_PATH"

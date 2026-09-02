@@ -11,7 +11,7 @@ REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 PROJECT_DIR="${REPO_ROOT}/firefox-ios"
 CREDENTIAL_NAME="${XCODECACHEPROG_CREDENTIAL_NAME:-firefox-ios}"
 CONFIG_FILE="${PROJECT_DIR}/XcodeRemoteCache.xcconfig"
-DERIVED_DATA_PATH="${HOME}/DerivedData"
+DERIVED_DATA_PATH="${FIREFOX_DERIVED_DATA_PATH:-${HOME}/DerivedData}"
 
 run_xcodecacheprog() {
   (
@@ -59,8 +59,8 @@ echo "=== Effective settings ==="
 XCODE_XCCONFIG_FILE="$CONFIG_FILE" \
 xcodebuild \
   -project "${PROJECT_DIR}/Client.xcodeproj" \
-  -scheme Fennec \
-  -configuration Fennec_Testing \
+  -scheme "${FIREFOX_SCHEME:-Fennec}" \
+  -configuration "${FIREFOX_CONFIGURATION:-Fennec_Testing}" \
   -destination 'generic/platform=iOS Simulator' \
   -showBuildSettings |
 grep -E 'DT_TOOLCHAIN_DIR|TOOLCHAIN_DIR|HEADER_SEARCH_PATHS|SDKROOT'
@@ -73,18 +73,7 @@ xcodebuild \
 
 echo "Running Firefox build-for-testing"
 XCODE_XCCONFIG_FILE="$CONFIG_FILE" \
-xcodebuild \
-  -project "${PROJECT_DIR}/Client.xcodeproj" \
-  -scheme Fennec \
-  -configuration Fennec_Testing \
-  -destination "platform=iOS Simulator,name=iPhone 16,OS=26.2" \
-  COMPILER_INDEX_STORE_ENABLE=NO \
-  build-for-testing \
-  CODE_SIGN_IDENTITY= \
-  CODE_SIGNING_REQUIRED=NO \
-  CODE_SIGNING_ALLOWED=NO \
-  -derivedDataPath "$DERIVED_DATA_PATH" \
-  -skipMacroValidation
+"${REPO_ROOT}/.github/scripts/run-firefox-build-for-testing.sh"
 
 echo
 echo "Remote cache status after build"

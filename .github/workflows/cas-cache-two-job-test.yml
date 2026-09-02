@@ -27,6 +27,11 @@ jobs:
     env:
       CACHE_MODE: ${{ inputs.cache_mode }}
       CLEAR_LOCAL_CACHE_DIR: ${{ inputs.clear_local_cache_dir }}
+      FIREFOX_SCHEME: Fennec
+      FIREFOX_CONFIGURATION: Fennec_Testing
+      FIREFOX_TEST_PLAN: UnitTest
+      FIREFOX_TEST_DESTINATION: platform=iOS Simulator,name=iPhone 16,OS=26.2
+      FIREFOX_DERIVED_DATA_PATH: ${{ runner.temp }}/firefox-derived-data
 
     steps:
       - name: Print Mac machine info
@@ -107,15 +112,15 @@ jobs:
 
       - name: Clean DerivedData before warm build
         run: |
-          rm -rf "${HOME}/DerivedData"
+          rm -rf "${FIREFOX_DERIVED_DATA_PATH}"
           rm -rf "${HOME}/Library/Developer/Xcode/DerivedData"
 
       - name: Clean Xcode build products before warm build
         run: |
           xcodebuild clean \
             -project firefox-ios/Client.xcodeproj \
-            -scheme Fennec \
-            -destination "platform=iOS Simulator,name=iPhone 16" \
+            -scheme "${FIREFOX_SCHEME}" \
+            -destination "${FIREFOX_TEST_DESTINATION}" \
             CODE_SIGN_IDENTITY= \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO
@@ -133,15 +138,15 @@ jobs:
 
       - name: Clean DerivedData before warmed build
         run: |
-          rm -rf "${HOME}/DerivedData"
+          rm -rf "${FIREFOX_DERIVED_DATA_PATH}"
           rm -rf "${HOME}/Library/Developer/Xcode/DerivedData"
 
       - name: Clean Xcode build products before warmed build
         run: |
           xcodebuild clean \
             -project firefox-ios/Client.xcodeproj \
-            -scheme Fennec \
-            -destination "platform=iOS Simulator,name=iPhone 16" \
+            -scheme "${FIREFOX_SCHEME}" \
+            -destination "${FIREFOX_TEST_DESTINATION}" \
             CODE_SIGN_IDENTITY= \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO
@@ -150,3 +155,6 @@ jobs:
         env:
           XCODECACHEPROG_TOKEN: ${{ secrets.XCODECACHEPROG_TOKEN }}
         run: exec "${CACHE_BUILD_SCRIPT}"
+
+      - name: Run Firefox unit tests without building
+        run: exec ./.github/scripts/run-firefox-test-without-building.sh
