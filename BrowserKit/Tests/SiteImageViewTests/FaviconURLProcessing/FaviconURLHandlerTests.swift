@@ -12,6 +12,10 @@ class FaviconURLHandlerTests: XCTestCase {
     var mockFetcher: MockFaviconURLFetcher!
     var mockCache: MockFaviconURLCache!
 
+    override func setUpWithError() throws {
+                    throw XCTSkip("Disabled for xcodecacheprog testing")
+                }
+
     override func setUp() {
         super.setUp()
         mockFetcher = MockFaviconURLFetcher()

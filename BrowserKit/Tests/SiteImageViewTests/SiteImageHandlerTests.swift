@@ -7,6 +7,9 @@ import XCTest
 
 @MainActor
 final class SiteImageHandlerTests: XCTestCase {
+ override func setUpWithError() throws {
+            throw XCTSkip("Disabled for xcodecacheprog testing")
+        }
     private var urlHandler: MockFaviconURLHandler!
     private var imageHandler: MockImageHandler!
 

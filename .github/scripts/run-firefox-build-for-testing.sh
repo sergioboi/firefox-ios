@@ -8,7 +8,7 @@ PROJECT="${REPO_ROOT}/firefox-ios/Client.xcodeproj"
 SCHEME="${FIREFOX_SCHEME:-Fennec}"
 CONFIGURATION="${FIREFOX_CONFIGURATION:-Fennec_Testing}"
 TEST_PLAN="${FIREFOX_TEST_PLAN:-UnitTest}"
-DESTINATION="${FIREFOX_TEST_DESTINATION:-platform=iOS Simulator,name=iPhone 16,OS=26.2}"
+DESTINATION="${FIREFOX_TEST_DESTINATION:-platform=iOS Simulator,name=iPhone 17,OS=26.3.1}"
 DERIVED_DATA_PATH="${FIREFOX_DERIVED_DATA_PATH:-${HOME}/DerivedData}"
 
 if [[ ! -d "$PROJECT" ]]; then

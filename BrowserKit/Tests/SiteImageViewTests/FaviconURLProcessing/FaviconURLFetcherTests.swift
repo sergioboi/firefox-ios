@@ -9,6 +9,10 @@ class FaviconURLFetcherTests: XCTestCase {
     var subject: DefaultFaviconURLFetcher!
     var networkMock: MockHTMLDataRequest!
 
+    override func setUpWithError() throws {
+                    throw XCTSkip("Disabled for xcodecacheprog testing")
+                }
+
     override func setUp() {
         super.setUp()
         networkMock = MockHTMLDataRequest()

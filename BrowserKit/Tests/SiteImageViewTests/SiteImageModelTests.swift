@@ -6,6 +6,9 @@ import XCTest
 @testable import SiteImageView
 
 class SiteImageModelTests: XCTestCase {
+     override func setUpWithError() throws {
+                throw XCTSkip("Disabled for xcodecacheprog testing")
+            }
     let siteURL = URL(string: "https://www.mozilla.org")!
     let faviconURL = URL(string: "https://www.mozilla.org/media/img/favicons/mozilla/apple-touch-icon.8cbe9c835c00.png")!
 

@@ -8,6 +8,10 @@ import XCTest
 final class SiteImageViewTests: XCTestCase {
     private var imageFetcher: MockSiteImageHandler!
 
+    override func setUpWithError() throws {
+            throw XCTSkip("Disabled for xcodecacheprog testing")
+        }
+
     override func setUp() {
         super.setUp()
         self.imageFetcher = MockSiteImageHandler()

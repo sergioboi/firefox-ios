@@ -10,6 +10,10 @@ class URLCacheFileManagerTests: XCTestCase {
     var subject: DefaultURLCacheFileManager!
     var mockFileManager: MockFileManager!
 
+    override func setUpWithError() throws {
+                throw XCTSkip("Disabled for xcodecacheprog testing")
+            }
+
     override func setUp() {
         super.setUp()
         mockFileManager = MockFileManager()

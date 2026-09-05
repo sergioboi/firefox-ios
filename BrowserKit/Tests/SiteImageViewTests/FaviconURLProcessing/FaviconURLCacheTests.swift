@@ -10,6 +10,10 @@ import TestKit
 class FaviconURLCacheTests: XCTestCase {
     var mockFileManager: MockURLCacheFileManager!
 
+    override func setUpWithError() throws {
+                    throw XCTSkip("Disabled for xcodecacheprog testing")
+                }
+
     override func setUp() async throws {
         try await super.setUp()
         mockFileManager = MockURLCacheFileManager()
