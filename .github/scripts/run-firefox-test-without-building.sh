@@ -49,4 +49,7 @@ xcodebuild \
   -xctestrun "$XCTESTRUN_FILE" \
   -destination "$DESTINATION" \
   -resultBundlePath "$RESULT_BUNDLE_PATH" \
+  -test-timeouts-enabled YES \
+  -default-test-execution-time-allowance 60 \
+  -maximum-test-execution-time-allowance 60
   "$@"
