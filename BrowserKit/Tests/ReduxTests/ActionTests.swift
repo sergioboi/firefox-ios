@@ -6,8 +6,6 @@ import XCTest
 
 @testable import Redux
 
-
-
 final class ModernActionTests: XCTestCase {
     func testActionDescription_noAssociatedValue() {
         let action = FakeReduxModernAction.requestInitialValue

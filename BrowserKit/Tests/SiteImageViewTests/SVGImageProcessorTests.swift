@@ -9,7 +9,6 @@ import Kingfisher
 import GCDWebServers
 
 class SVGImageProcessorTests: XCTestCase, @unchecked Sendable {
-
     override func setUpWithError() throws {
             throw XCTSkip("Disabled for xcodecacheprog testing")
         }
