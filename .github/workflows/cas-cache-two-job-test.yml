@@ -58,9 +58,6 @@ jobs:
       - name: Check out source code
         uses: actions/checkout@v4.1.7
 
-      - name: Set Firefox DerivedData path
-        run: echo "FIREFOX_DERIVED_DATA_PATH=${RUNNER_TEMP}/firefox-derived-data" >> "${GITHUB_ENV}"
-
       - name: Select required Xcode version
         run: |
           sudo xcode-select -s "${{ env.xcode_path }}"
@@ -100,8 +97,9 @@ jobs:
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO
 
-          rm -rf "${FIREFOX_DERIVED_DATA_PATH}"
+          rm -rf "${HOME}/DerivedData"
           rm -rf "${HOME}/Library/Developer/Xcode/DerivedData"
+          test ! -e "${HOME}/DerivedData"
 
       - name: Build tests without cache after clean
         env:
@@ -129,8 +127,9 @@ jobs:
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO
 
-          rm -rf "${FIREFOX_DERIVED_DATA_PATH}"
+          rm -rf "${HOME}/DerivedData"
           rm -rf "${HOME}/Library/Developer/Xcode/DerivedData"
+          test ! -e "${HOME}/DerivedData"
 
       - name: Build tests with cache enabled
         env:
@@ -150,7 +149,8 @@ jobs:
 
       - name: Test cached build
         run: |
-          PRODUCTS_DIR="${FIREFOX_DERIVED_DATA_PATH}/Build/Products"
+          DERIVED_DATA_PATH="${FIREFOX_DERIVED_DATA_PATH:-${HOME}/DerivedData}"
+          PRODUCTS_DIR="${DERIVED_DATA_PATH}/Build/Products"
           XCTESTRUN_PATH="$(
             find "${PRODUCTS_DIR}" \
               -type f \
