@@ -13,6 +13,10 @@ final class OnboardingTelemetryUtilityTests: XCTestCase {
     typealias CardNames = NimbusOnboardingTestingConfigUtility.CardOrder
     var mockGleanWrapper: MockGleanWrapper!
 
+    override func setUpWithError() throws {
+        throw XCTSkip("Disabled for xcodecacheprog testing")
+    }
+
     override func setUp() async throws {
         try await super.setUp()
         mockGleanWrapper = MockGleanWrapper()

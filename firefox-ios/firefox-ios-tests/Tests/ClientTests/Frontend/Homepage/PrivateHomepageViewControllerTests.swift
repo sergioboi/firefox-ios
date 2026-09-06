@@ -13,7 +13,11 @@ final class PrivateHomepageViewControllerTests: XCTestCase {
 
     func testPrivateHomepageViewController_simpleCreation_hasNoLeaks() {
         let overlayManager = MockOverlayModeManager()
-        let privateHomeViewController = PrivateHomepageViewController(windowUUID: windowUUID, overlayManager: overlayManager)
+        let privateHomeViewController = PrivateHomepageViewController(
+            windowUUID: windowUUID,
+            themeManager: MockThemeManager(),
+            overlayManager: overlayManager
+        )
 
         trackForMemoryLeaks(privateHomeViewController)
     }

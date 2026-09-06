@@ -51,5 +51,5 @@ xcodebuild \
   -resultBundlePath "$RESULT_BUNDLE_PATH" \
   -test-timeouts-enabled YES \
   -default-test-execution-time-allowance 60 \
-  -maximum-test-execution-time-allowance 60
+  -maximum-test-execution-time-allowance 60 \
   "$@"
