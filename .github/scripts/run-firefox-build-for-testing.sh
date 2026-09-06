@@ -23,6 +23,7 @@ echo "Configuration: $CONFIGURATION"
 echo "Test plan:     $TEST_PLAN"
 echo "Destination:   $DESTINATION"
 echo "DerivedData:   $DERIVED_DATA_PATH"
+echo "Xcode config:  $XCODE_XCCONFIG_FILE"
 
 xcodebuild \
   -project "$PROJECT" \
@@ -32,6 +33,7 @@ xcodebuild \
   -destination "$DESTINATION" \
   -derivedDataPath "$DERIVED_DATA_PATH" \
   -skipMacroValidation \
+  -xcconfig "$XCODE_XCCONFIG_FILE" \
   build-for-testing \
   COMPILER_INDEX_STORE_ENABLE=NO \
   CODE_SIGN_IDENTITY= \

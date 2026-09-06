@@ -56,7 +56,6 @@ xcode-select -p
 xcodebuild -version
 
 echo "=== Effective settings ==="
-XCODE_XCCONFIG_FILE="$CONFIG_FILE" \
 xcodebuild \
   -project "${PROJECT_DIR}/Client.xcodeproj" \
   -scheme "${FIREFOX_SCHEME:-Fennec}" \
