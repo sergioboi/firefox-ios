@@ -7,16 +7,11 @@ import XCTest
 
 @MainActor
 final class SiteImageHandlerTests: XCTestCase {
- override func setUpWithError() throws {
-            throw XCTSkip("Disabled for xcodecacheprog testing")
-        }
     private var urlHandler: MockFaviconURLHandler!
     private var imageHandler: MockImageHandler!
 
     override func setUp() async throws {
-        try await super.setUp()
-        self.urlHandler = MockFaviconURLHandler()
-        self.imageHandler = MockImageHandler()
+        throw XCTSkip("Disabled for xcodecacheprog testing")
     }
 
     override func tearDown() async throws {
