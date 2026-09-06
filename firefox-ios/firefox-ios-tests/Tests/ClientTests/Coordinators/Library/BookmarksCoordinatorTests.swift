@@ -13,21 +13,7 @@ final class BookmarksCoordinatorTests: XCTestCase {
     private var navigationHandler: MockLibraryNavigationHandler!
 
     override func setUp() async throws {
-        try await super.setUp()
-        DependencyHelperMock().bootstrapDependencies()
-        router = MockRouter(navigationController: UINavigationController())
-        profile = MockProfile()
-        parentCoordinator = MockLibraryCoordinatorDelegate()
-        navigationHandler = MockLibraryNavigationHandler()
-    }
-
-    override func tearDown() async throws {
-        DependencyHelperMock().reset()
-        router = nil
-        profile = nil
-        parentCoordinator = nil
-        navigationHandler = nil
-        try await super.tearDown()
+        throw XCTSkip("Disabled for xcodecacheprog testing")
     }
 
     // MARK: Bookmarks

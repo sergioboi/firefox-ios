@@ -18,14 +18,6 @@ class HistoryPanelViewModelTests: XCTestCase {
         throw XCTSkip("Disabled for xcodecacheprog testing")
     }
 
-    override func tearDown() async throws {
-        DependencyHelperMock().reset()
-        clear(profile: profile)
-        profile.shutdown()
-        profile = nil
-        try await super.tearDown()
-    }
-
     func testHistorySectionTitle() {
         HistoryPanelViewModel.Sections.allCases.forEach({ section in
             switch section {
