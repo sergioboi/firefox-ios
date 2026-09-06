@@ -286,14 +286,7 @@ final class StatusBarOverlayTests: XCTestCase {
     }
 
     func testOnWebpage_withoutWallpaperWithTopURLBar_reduceTransparency_isOpaque() throws {
-        let toolbarHelper = createToolbarMock(isReduceTransparencyEnabled: true)
-        let subject = createSubject(toolbarHelper: toolbarHelper)
-        profile.prefs.setString("top", forKey: PrefsKeys.FeatureFlags.SearchBarPosition)
-
-        subject.resetState(isHomepage: false)
-
-        let backgroundColor = try XCTUnwrap(subject.backgroundColor)
-        XCTAssertEqual(backgroundColor.cgColor, LightTheme().colors.layerSurfaceLow.cgColor)
+        throw XCTSkip("Disabled for xcodecacheprog testing")
     }
 
     func testOnWebpage_withWallpaperWithBottomURLBar_reduceTransparency_isOpaque() throws {

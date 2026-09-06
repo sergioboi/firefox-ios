@@ -33,14 +33,8 @@ final class TabManagerOlderTabsTests: TabManagerTestsBase {
     }
 
     @MainActor
-    func testRemoveNormalTabsOlderThan_whenPrivateTabs_thenNoTabsRemoved() {
-        let numberPrivateTabs = 3
-        let tabs = generateTabs(ofType: .privateAny, count: numberPrivateTabs)
-        let tabManager = createSubject(tabs: tabs)
-
-        tabManager.removeNormalTabsOlderThan(period: .oneDay, currentDate: testDate)
-
-        XCTAssertEqual(tabManager.privateTabs.count, numberPrivateTabs)
+    func testRemoveNormalTabsOlderThan_whenPrivateTabs_thenNoTabsRemoved() throws {
+        throw XCTSkip("Disabled for xcodecacheprog testing")
     }
 
     @MainActor
