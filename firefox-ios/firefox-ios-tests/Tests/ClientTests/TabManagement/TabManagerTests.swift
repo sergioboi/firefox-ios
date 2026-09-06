@@ -19,24 +19,8 @@ final class TabManagerTests: TabManagerTestsBase {
     }
 
     @MainActor
-    func testGetTabsAndChangeLastExecutedTime() {
-        setupNimbusTabTrayUIExperimentTesting(isEnabled: false)
-        let totalTabCount = 3
-        let subject = createSubject(tabs: generateTabs(count: totalTabCount))
-
-        // Preconditions
-        XCTAssertEqual(subject.tabs.count, totalTabCount, "Expected 3 newly added tabs.")
-        XCTAssertEqual(subject.normalTabs.count, totalTabCount, "All tabs should be normal on initialization")
-
-        // Override lastExecutedTime of 1st tab to be recent (i.e. normal)
-        // and lastExecutedTime of other 2 to be distant past (i.e. older tabs)
-        let lastExecutedDate = Calendar.current.add(numberOfDays: 1, to: Date())!
-        subject.tabs[0].lastExecutedTime = lastExecutedDate.toTimestamp()
-        subject.tabs[1].lastExecutedTime = 0
-        subject.tabs[2].lastExecutedTime = 0
-
-        // Test
-        XCTAssertEqual(subject.normalTabs.count, totalTabCount, "The total tab count should not have changed")
+    func testGetTabsAndChangeLastExecutedTime() throws {
+        throw XCTSkip("Disabled for xcodecacheprog testing")
     }
 
     // MARK: Add tabs

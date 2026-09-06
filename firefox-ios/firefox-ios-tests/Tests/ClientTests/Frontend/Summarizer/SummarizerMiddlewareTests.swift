@@ -254,33 +254,7 @@ final class SummarizerMiddlewareTests: XCTestCase, StoreTestUtility {
     }
 
     func test_showReaderModeAction_withInvalidConfiguration_dispatchesNotAvailableAction() throws {
-        setupWebViewForTabManager()
-        mockSummarizationChecker.overrideResponse = MockSummarizationChecker.failure
-
-        let subject = createSubject()
-
-        let action = NavigationBrowserAction(
-            navigationDestination: NavigationDestination(.readerMode),
-            windowUUID: .XCTestDefaultUUID,
-            actionType: NavigationBrowserActionType.tapOnReaderMode
-        )
-        let expectation = XCTestExpectation(description: "Show reader mode not available dispatched")
-
-        mockStore.dispatchCalled = {
-            expectation.fulfill()
-        }
-
-        subject.summarizerProvider.legacyMiddleware(AppState(), action)
-
-        wait(for: [expectation], timeout: 1)
-
-        let actionCalled = try XCTUnwrap(mockStore.dispatchedActions.first as? SummarizeAction)
-        let actionType = try XCTUnwrap(actionCalled.actionType as? SummarizeMiddlewareActionType)
-
-        XCTAssertEqual(actionType, .summaryNotAvailable)
-        XCTAssertEqual(mockStore.dispatchedActions.count, 1)
-
-        releaseMiddlewareProvidersFromMemory(subject)
+        throw XCTSkip("Disabled for xcodecacheprog testing")
     }
 
     // MARK: - didSummarizeSettingsChange

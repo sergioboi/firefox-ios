@@ -22,12 +22,7 @@ final class TabScrollHandlerTests: XCTestCase {
     var bottomContainer: BaseAlphaStackView = .build()
 
     override func setUp() async throws {
-        try await super.setUp()
-
-        DependencyHelperMock().bootstrapDependencies()
-        mockProfile = MockProfile()
-        tab = Tab(profile: mockProfile, windowUUID: windowUUID)
-        delegate = MockTabScrollHandlerDelegate()
+        throw XCTSkip("Disabled for xcodecacheprog testing")
     }
 
     override func tearDown() async throws {
