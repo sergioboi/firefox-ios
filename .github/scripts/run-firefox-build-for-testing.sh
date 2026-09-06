@@ -9,14 +9,24 @@ SCHEME="${FIREFOX_SCHEME:-Fennec}"
 CONFIGURATION="${FIREFOX_CONFIGURATION:-Fennec_Testing}"
 TEST_PLAN="${FIREFOX_TEST_PLAN:-UnitTest}"
 DESTINATION="${FIREFOX_TEST_DESTINATION:-platform=iOS Simulator,name=iPhone 17,OS=26.3.1}"
-DERIVED_DATA_PATH="${FIREFOX_DERIVED_DATA_PATH:-${HOME}/DerivedData}"
+DERIVED_DATA_PATH="${HOME}/DerivedData"
+BUILD_TASK="${FIREFOX_BUILD_TASK}"
+
+case "$BUILD_TASK" in
+  build|build-for-testing)
+    ;;
+  *)
+    echo "Unsupported Firefox build task: $BUILD_TASK" >&2
+    exit 1
+    ;;
+esac
 
 if [[ ! -d "$PROJECT" ]]; then
   echo "Firefox project not found: $PROJECT" >&2
   exit 1
 fi
 
-echo "=== Firefox build-for-testing ==="
+echo "=== Firefox ${BUILD_TASK} ==="
 echo "Project:       $PROJECT"
 echo "Scheme:        $SCHEME"
 echo "Configuration: $CONFIGURATION"
@@ -25,23 +35,38 @@ echo "Destination:   $DESTINATION"
 echo "DerivedData:   $DERIVED_DATA_PATH"
 echo "Xcode config:  $XCODE_XCCONFIG_FILE"
 
-xcodebuild \
+XCODEBUILD_ARGS=(
   -project "$PROJECT" \
   -scheme "$SCHEME" \
   -configuration "$CONFIGURATION" \
-  -testPlan "$TEST_PLAN" \
   -destination "$DESTINATION" \
   -derivedDataPath "$DERIVED_DATA_PATH" \
-  -skipMacroValidation \
-  -xcconfig "$XCODE_XCCONFIG_FILE" \
-  build-for-testing \
+  -skipMacroValidation
+)
+
+if [[ "$BUILD_TASK" == "build-for-testing" ]]; then
+  XCODEBUILD_ARGS+=(
+    -testPlan "$TEST_PLAN"
+  )
+fi
+
+XCODEBUILD_ARGS+=(
+  -xcconfig "$XCODE_XCCONFIG_FILE"
+  "$BUILD_TASK"
   COMPILER_INDEX_STORE_ENABLE=NO \
   CODE_SIGN_IDENTITY= \
   CODE_SIGNING_REQUIRED=NO \
   CODE_SIGNING_ALLOWED=NO \
   "$@"
+)
+
+xcodebuild "${XCODEBUILD_ARGS[@]}"
 
 PRODUCTS_DIR="${DERIVED_DATA_PATH}/Build/Products"
+
+if [[ "$BUILD_TASK" == "build" ]]; then
+  exit 0
+fi
 
 if [[ ! -d "$PRODUCTS_DIR" ]]; then
   echo "Build products not found after build: $PRODUCTS_DIR" >&2

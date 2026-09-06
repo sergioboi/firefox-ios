@@ -5,7 +5,7 @@ set -euo pipefail
 SCHEME="${FIREFOX_SCHEME:-Fennec}"
 TEST_PLAN="${FIREFOX_TEST_PLAN:-UnitTest}"
 DESTINATION="${FIREFOX_TEST_DESTINATION:-platform=iOS Simulator,name=iPhone 16,OS=26.2}"
-DERIVED_DATA_PATH="${FIREFOX_DERIVED_DATA_PATH:-${HOME}/DerivedData}"
+DERIVED_DATA_PATH="${HOME}/DerivedData"
 
 PRODUCTS_DIR="${DERIVED_DATA_PATH}/Build/Products"
 

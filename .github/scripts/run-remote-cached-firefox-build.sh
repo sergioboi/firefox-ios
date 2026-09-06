@@ -11,7 +11,7 @@ REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 PROJECT_DIR="${REPO_ROOT}/firefox-ios"
 CREDENTIAL_NAME="${XCODECACHEPROG_CREDENTIAL_NAME:-firefox-ios}"
 CONFIG_FILE="${PROJECT_DIR}/XcodeRemoteCache.xcconfig"
-DERIVED_DATA_PATH="${FIREFOX_DERIVED_DATA_PATH:-${HOME}/DerivedData}"
+DERIVED_DATA_PATH="${HOME}/DerivedData"
 
 run_xcodecacheprog() {
   (
@@ -70,7 +70,7 @@ xcodebuild \
   -resolvePackageDependencies \
   -onlyUsePackageVersionsFromResolvedFile
 
-echo "Running Firefox build-for-testing"
+echo "Running Firefox ${FIREFOX_BUILD_TASK}"
 XCODE_XCCONFIG_FILE="$CONFIG_FILE" \
 "${REPO_ROOT}/.github/scripts/run-firefox-build-for-testing.sh"
 

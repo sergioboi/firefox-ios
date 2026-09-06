@@ -9,7 +9,7 @@ CONFIG_FILE="${STATE_DIR}/config.toml"
 SOCKET_PATH="${HOME}/.local/state/cas-build-cache/cache.sock"
 EXPORT_DIR="${STATE_DIR}/exports"
 SERVER_LOG="${STATE_DIR}/server.log"
-DERIVED_DATA_PATH="${FIREFOX_DERIVED_DATA_PATH:-${HOME}/DerivedData}"
+DERIVED_DATA_PATH="${HOME}/DerivedData"
 
 mkdir -p "$CACHE_DIR"
 mkdir -p "$STATE_DIR"
@@ -112,7 +112,7 @@ xcodebuild \
   -resolvePackageDependencies \
   -onlyUsePackageVersionsFromResolvedFile
 
-echo "Running Firefox build-for-testing"
+echo "Running Firefox ${FIREFOX_BUILD_TASK}"
 "${WORKSPACE}/.github/scripts/run-firefox-build-for-testing.sh" \
   COMPILATION_CACHE_ENABLE_CACHING=YES \
   COMPILATION_CACHE_ENABLE_PLUGIN=YES \
