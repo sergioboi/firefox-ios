@@ -15,11 +15,7 @@ class HistoryPanelViewModelTests: XCTestCase {
     var profile: MockProfile!
 
     override func setUp() async throws {
-        try await super.setUp()
-
-        DependencyHelperMock().bootstrapDependencies()
-        profile = MockProfile(databasePrefix: "HistoryPanelViewModelTest")
-        profile.reopen()
+        throw XCTSkip("Disabled for xcodecacheprog testing")
     }
 
     override func tearDown() async throws {

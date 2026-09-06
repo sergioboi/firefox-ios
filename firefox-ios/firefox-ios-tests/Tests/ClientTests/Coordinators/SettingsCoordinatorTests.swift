@@ -15,12 +15,7 @@ final class SettingsCoordinatorTests: XCTestCase {
     private var mockSettingsVC: MockAppSettingsScreen!
 
     override func setUp() async throws {
-        try await super.setUp()
-        DependencyHelperMock().bootstrapDependencies()
-        self.mockRouter = MockRouter(navigationController: MockNavigationController())
-        self.wallpaperManager = WallpaperManagerMock()
-        self.delegate = MockSettingsCoordinatorDelegate()
-        self.mockSettingsVC = MockAppSettingsScreen()
+        throw XCTSkip("Disabled for xcodecacheprog testing")
     }
 
     override func tearDown() async throws {

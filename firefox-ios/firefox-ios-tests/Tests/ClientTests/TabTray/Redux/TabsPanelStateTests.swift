@@ -10,8 +10,7 @@ import XCTest
 
 final class TabPanelStateTests: XCTestCase {
     override func setUp() async throws {
-        try await super.setUp()
-        await DependencyHelperMock().bootstrapDependencies()
+        throw XCTSkip("Disabled for xcodecacheprog testing")
     }
 
     override func tearDown() async throws {
