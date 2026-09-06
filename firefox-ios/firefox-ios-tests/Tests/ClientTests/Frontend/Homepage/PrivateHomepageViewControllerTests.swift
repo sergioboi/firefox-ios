@@ -11,16 +11,6 @@ import Common
 final class PrivateHomepageViewControllerTests: XCTestCase {
     let windowUUID: WindowUUID = .XCTestDefaultUUID
 
-    override func setUp() async throws {
-        try await super.setUp()
-        DependencyHelperMock().bootstrapDependencies()
-    }
-
-    override func tearDown() async throws {
-        DependencyHelperMock().reset()
-        try await super.tearDown()
-    }
-
     func testPrivateHomepageViewController_simpleCreation_hasNoLeaks() {
         let overlayManager = MockOverlayModeManager()
         let privateHomeViewController = PrivateHomepageViewController(windowUUID: windowUUID, overlayManager: overlayManager)

@@ -105,15 +105,24 @@ final class MockTabQueue: TabQueue, @unchecked Sendable {
 
 class MockFiles: FileAccessor {
     var rootPath: String
+    private let ownsRootPath: Bool
 
     init(rootPath: String? = nil) {
         guard let rootPath else {
-            let docPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-            self.rootPath = (docPath as NSString).appendingPathComponent("testing")
+            let directory = FileManager.default.temporaryDirectory
+                .appendingPathComponent("FirefoxTest-\(UUID().uuidString)", isDirectory: true)
+            self.rootPath = directory.path
+            self.ownsRootPath = true
             return
         }
 
         self.rootPath = rootPath
+        self.ownsRootPath = false
+    }
+
+    deinit {
+        guard ownsRootPath else { return }
+        try? FileManager.default.removeItem(atPath: rootPath)
     }
 }
 

@@ -4,7 +4,7 @@
 
 import UIKit
 
-enum ContentType {
+enum ContentType: Equatable {
     case homepage
     case privateHomepage
     case nativeErrorPage
@@ -52,13 +52,13 @@ class ContentContainer: UIView {
     func canAdd(content: ContentContainable) -> Bool {
         switch type {
         case .nativeErrorPage:
-            return !(content is NativeErrorPageViewController)
+            return content.contentType != .nativeErrorPage
         case .homepage:
-            return !(content is HomepageViewController)
+            return content.contentType != .homepage
         case .privateHomepage:
-            return !(content is PrivateHomepageViewController)
+            return content.contentType != .privateHomepage
         case .webview:
-            return !(content is WebviewViewController)
+            return content.contentType != .webview
         case .none:
             return true
         }

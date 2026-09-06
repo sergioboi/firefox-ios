@@ -15,14 +15,11 @@ final class OnboardingTelemetryUtilityTests: XCTestCase {
 
     override func setUp() async throws {
         try await super.setUp()
-        DependencyHelperMock().bootstrapDependencies()
         mockGleanWrapper = MockGleanWrapper()
-        Self.setupTelemetry(with: MockProfile())
     }
 
     override func tearDown() async throws {
         mockGleanWrapper = nil
-        Self.tearDownTelemetry()
         try await super.tearDown()
     }
 

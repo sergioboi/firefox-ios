@@ -3,7 +3,6 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/
 
 import Common
-import WebKit
 import XCTest
 @testable import Client
 
@@ -14,7 +13,6 @@ final class ContentContainerTests: XCTestCase {
 
     override func setUp() async throws {
         try await super.setUp()
-        DependencyHelperMock().bootstrapDependencies()
         self.overlayModeManager = MockOverlayModeManager()
         self.tabManager = MockTabManager()
     }
@@ -22,7 +20,6 @@ final class ContentContainerTests: XCTestCase {
     override func tearDown() async throws {
         self.overlayModeManager = nil
         self.tabManager = nil
-        DependencyHelperMock().reset()
         try await super.tearDown()
     }
 
@@ -97,14 +94,14 @@ final class ContentContainerTests: XCTestCase {
 
     func testCanAddWebview() {
         let subject = createSubject()
-        let webview = WebviewViewController(webView: WKWebView())
+        let webview = createWebview()
 
         XCTAssertTrue(subject.canAdd(content: webview))
     }
 
     func testCanAddWebviewOnceOnly() {
         let subject = createSubject()
-        let webview = WebviewViewController(webView: WKWebView())
+        let webview = createWebview()
 
         subject.add(content: webview)
         XCTAssertFalse(subject.canAdd(content: webview))
@@ -112,7 +109,7 @@ final class ContentContainerTests: XCTestCase {
 
     func testHasHomepage_falseWhenWebview() {
         let subject = createSubject()
-        let webview = WebviewViewController(webView: WKWebView())
+        let webview = createWebview()
         subject.add(content: webview)
 
         XCTAssertFalse(subject.hasHomepage)
@@ -140,7 +137,7 @@ final class ContentContainerTests: XCTestCase {
 
     func testHasNewHomepage_returnsFalseWhenWebview() {
         let subject = createSubject()
-        let webview = WebviewViewController(webView: WKWebView())
+        let webview = createWebview()
         subject.add(content: webview)
 
         XCTAssertFalse(subject.hasHomepage)
@@ -166,7 +163,7 @@ final class ContentContainerTests: XCTestCase {
 
     func testHasPrivateHomepage_returnsFalseWhenWebview() {
         let subject = createSubject()
-        let webview = WebviewViewController(webView: WKWebView())
+        let webview = createWebview()
         subject.add(content: webview)
 
         XCTAssertFalse(subject.hasPrivateHomepage)
@@ -269,7 +266,7 @@ final class ContentContainerTests: XCTestCase {
 
     func test_update_hasWebView_returnsTrue() {
         let subject = createSubject()
-        let webview = WebviewViewController(webView: WKWebView())
+        let webview = createWebview()
         subject.update(content: webview)
         XCTAssertTrue(subject.hasWebView)
         XCTAssertFalse(subject.hasHomepage)
@@ -279,7 +276,7 @@ final class ContentContainerTests: XCTestCase {
     func testAdd_doesNotRemoveWebView() {
         let subject = createSubject()
 
-        let webView = WebviewViewController(webView: WKWebView())
+        let webView = createWebview()
         subject.add(content: webView)
         subject.add(content: createHomepage())
 
@@ -296,7 +293,7 @@ final class ContentContainerTests: XCTestCase {
             toastContainer: UIView()
         )
         subject.add(content: homepage)
-        subject.add(content: WebviewViewController(webView: WKWebView()))
+        subject.add(content: createWebview())
 
         XCTAssertNil(homepage.view.superview)
     }
@@ -314,5 +311,23 @@ final class ContentContainerTests: XCTestCase {
             overlayManager: overlayModeManager,
             toastContainer: UIView()
         )
+    }
+
+    private func createWebview() -> TestContentViewController {
+        return TestContentViewController(contentType: .webview)
+    }
+}
+
+@MainActor
+private final class TestContentViewController: UIViewController, ContentContainable {
+    let contentType: ContentType
+
+    init(contentType: ContentType) {
+        self.contentType = contentType
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
