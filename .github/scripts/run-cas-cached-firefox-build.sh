@@ -113,10 +113,8 @@ xcodebuild \
   -onlyUsePackageVersionsFromResolvedFile
 
 echo "Running Firefox ${FIREFOX_BUILD_TASK}"
-"${WORKSPACE}/.github/scripts/run-firefox-build-for-testing.sh" \
-  COMPILATION_CACHE_ENABLE_CACHING=YES \
-  COMPILATION_CACHE_ENABLE_PLUGIN=YES \
-  COMPILATION_CACHE_REMOTE_SERVICE_PATH="$SOCKET_PATH"
+XCODE_XCCONFIG_FILE="${WORKSPACE}/.github/support/XcodeLocalCache.xcconfig" \
+  "${WORKSPACE}/.github/scripts/run-firefox-build-for-testing.sh"
 
 stop_server
 trap - EXIT
