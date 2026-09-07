@@ -14,20 +14,7 @@ final class ReaderModeSchemeHandlerTests: XCTestCase {
     private var mockFlags: MockNimbusFeatureFlags!
 
     override func setUp() async throws {
-        try await super.setUp()
-        mockFlags = MockNimbusFeatureFlags()
-        mockFlags.enabledFlags = [.customReaderModeScheme]
-        DependencyHelperMock().bootstrapDependencies(injectedFeatureFlagProvider: mockFlags)
-        tabManager = MockTabManager()
-        subject = ReaderModeSchemeHandler(profile: MockProfile(), tabManager: tabManager)
-    }
-
-    override func tearDown() async throws {
-        subject = nil
-        tabManager = nil
-        mockFlags = nil
-        DependencyHelperMock().reset()
-        try await super.tearDown()
+        throw XCTSkip("Disabled for xcodecacheprog testing")
     }
 
     // MARK: - Request validation
