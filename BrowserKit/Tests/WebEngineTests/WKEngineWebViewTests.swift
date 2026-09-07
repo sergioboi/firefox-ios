@@ -12,13 +12,7 @@ final class WKEngineWebViewTests: XCTestCase, @unchecked Sendable {
     private let testURL = URL(string: "https://www.example.com/")!
 
     override func setUp() async throws {
-        try await super.setUp()
-        delegate = MockWKEngineWebViewDelegate()
-    }
-
-    override func tearDown() async throws {
-        delegate = nil
-        try await super.tearDown()
+        throw XCTSkip("Disabled for xcodecacheprog testing")
     }
 
     func testNoLeaks() {

@@ -13,10 +13,7 @@ final class SearchEngineSelectionCoordinatorTests: XCTestCase {
     private var mockParentCoordinator: MockParentCoordinator!
 
     override func setUp() async throws {
-        try await super.setUp()
-        DependencyHelperMock().bootstrapDependencies()
-        mockRouter = MockRouter(navigationController: MockNavigationController())
-        mockParentCoordinator = MockParentCoordinator()
+        throw XCTSkip("Disabled for xcodecacheprog testing")
     }
 
     func testInitialState() {

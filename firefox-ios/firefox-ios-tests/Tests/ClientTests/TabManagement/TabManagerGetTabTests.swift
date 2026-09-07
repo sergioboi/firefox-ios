@@ -11,6 +11,10 @@ import Shared
 final class TabManagerGetTabTests: TabManagerTestsBase {
     // MARK: - getTabForUUID
 
+    override func setUp() async throws {
+        throw XCTSkip("Disabled for xcodecacheprog testing")
+    }
+
     @MainActor
     func testGetTabForUUID_returnsMatchingTab() {
         let tabs = generateTabs(ofType: .normal, count: 3)

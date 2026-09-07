@@ -14,11 +14,6 @@ class FaviconURLCacheTests: XCTestCase {
         throw XCTSkip("Disabled for xcodecacheprog testing")
     }
 
-    override func tearDown() async throws {
-        mockFileManager = nil
-        try await super.tearDown()
-    }
-
     func testGetURLFromCacheWithEmptyCache() async {
         let subject = createSubject(fileManager: mockFileManager)
         let cacheKey = "firefox.com"

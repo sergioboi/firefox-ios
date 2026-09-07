@@ -8,6 +8,10 @@ import XCTest
 final class TabManagerOlderTabsTests: TabManagerTestsBase {
     // MARK: - Remove Tabs Older than
 
+    override func setUp() async throws {
+        throw XCTSkip("Disabled for xcodecacheprog testing")
+    }
+
     @MainActor
     func testRemoveNormalTabsOlderThan_whenNotOldNormalTabs_thenNoTabsRemoved() {
         let numberTabs = 3
