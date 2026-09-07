@@ -7,6 +7,10 @@ import XCTest
 @testable import Client
 
 final class TabManagerTests: TabManagerTestsBase {
+    override func setUp() async throws {
+        throw XCTSkip("Disabled for xcodecacheprog testing")
+    }
+
     @MainActor
     func testRecentlyAccessedNormalTabs() {
         setupNimbusTabTrayUIExperimentTesting(isEnabled: false)

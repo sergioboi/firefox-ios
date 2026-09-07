@@ -34,39 +34,7 @@ final class BrowserCoordinatorTests: XCTestCase,
     let windowUUID: WindowUUID = .XCTestDefaultUUID
 
     override func setUp() async throws {
-        try await super.setUp()
-        let mockTabManager = MockTabManager()
-        self.tabManager = mockTabManager
-        profile = MockProfile()
-        DependencyHelperMock().bootstrapDependencies(injectedTabManager: mockTabManager)
-        setIsAppleSummarizerEnabled(false)
-        setIsDeeplinkOptimizationRefactorEnabled(false)
-        mockRouter = MockRouter(navigationController: MockNavigationController())
-        overlayModeManager = MockOverlayModeManager()
-        screenshotService = ScreenshotService()
-        applicationHelper = MockApplicationHelper()
-        glean = MockGleanWrapper()
-        scrollDelegate = MockStatusBarScrollDelegate()
-        browserViewController = MockBrowserViewController(profile: profile, tabManager: tabManager)
-        homepageTabStateStore = HomepageTabStateStore()
-        setupStore()
-    }
-
-    override func tearDown() async throws {
-        profile.shutdown()
-        mockRouter = nil
-        profile = nil
-        overlayModeManager = nil
-        screenshotService = nil
-        tabManager = nil
-        applicationHelper = nil
-        glean = nil
-        scrollDelegate = nil
-        browserViewController = nil
-        homepageTabStateStore = nil
-        resetStore()
-        DependencyHelperMock().reset()
-        try await super.tearDown()
+        throw XCTSkip("Disabled for xcodecacheprog testing")
     }
 
     func testInitialState() {

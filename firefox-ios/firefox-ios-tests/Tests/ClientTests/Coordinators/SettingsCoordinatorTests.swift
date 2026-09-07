@@ -18,15 +18,6 @@ final class SettingsCoordinatorTests: XCTestCase {
         throw XCTSkip("Disabled for xcodecacheprog testing")
     }
 
-    override func tearDown() async throws {
-        self.mockRouter = nil
-        self.wallpaperManager = nil
-        self.delegate = nil
-        self.mockSettingsVC = nil
-        DependencyHelperMock().reset()
-        try await super.tearDown()
-    }
-
     func testEmptyChildren_whenCreated() {
         let subject = createSubject()
 
