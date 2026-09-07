@@ -88,16 +88,8 @@ jobs:
           XCODE_XCCONFIG_FILE: ${{ github.workspace }}/.github/support/XcodeNoCache.xcconfig
         run: exec ./.github/scripts/run-firefox-build-for-testing.sh
 
-      - name: Clean before second no-cache build
+      - name: Remove build state
         run: |
-          xcodebuild clean \
-            -project firefox-ios/Client.xcodeproj \
-            -scheme "${FIREFOX_SCHEME}" \
-            -destination "${FIREFOX_TEST_DESTINATION}" \
-            CODE_SIGN_IDENTITY= \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO
-
           rm -rf "${HOME}/DerivedData"
           rm -rf "${HOME}/Library/Developer/Xcode/DerivedData"
           test ! -e "${HOME}/DerivedData"
@@ -118,16 +110,8 @@ jobs:
             echo "Skipping local CAS cache directory cleanup"
           fi
 
-      - name: Clean before cached build
+      - name: Remove build state
         run: |
-          xcodebuild clean \
-            -project firefox-ios/Client.xcodeproj \
-            -scheme "${FIREFOX_SCHEME}" \
-            -destination "${FIREFOX_TEST_DESTINATION}" \
-            CODE_SIGN_IDENTITY= \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO
-
           rm -rf "${HOME}/DerivedData"
           rm -rf "${HOME}/Library/Developer/Xcode/DerivedData"
           test ! -e "${HOME}/DerivedData"
