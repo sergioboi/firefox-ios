@@ -1,26 +1,18 @@
-name: CAS cache build
+name: Xcode cache build and test
 
 on:
   workflow_dispatch:
     inputs:
       cache_mode:
-        description: Cache mode to use
+        description: Cache mode to test
         type: choice
         required: true
         default: local
         options:
           - local
           - remote
-      build_task:
-        description: Xcode build task to run
-        type: choice
-        required: true
-        default: build-for-testing
-        options:
-          - build
-          - build-for-testing
       clear_local_cache_dir:
-        description: Clear .ci/cas-build-cache before the first cached build
+        description: Clear .ci/cas-build-cache before cold local-cache builds
         type: boolean
         required: true
         default: true
@@ -29,17 +21,17 @@ env:
   xcode_path: /Applications/Xcode_26.2.app/Contents/Developer
 
 jobs:
-  cas-cache-build:
-    name: CAS cache build comparison
+  cas-cache-test:
+    name: Xcode cache build and test
     runs-on: macos-15
     env:
       CACHE_MODE: ${{ inputs.cache_mode }}
       CLEAR_LOCAL_CACHE_DIR: ${{ inputs.clear_local_cache_dir }}
-      FIREFOX_BUILD_TASK: ${{ inputs.build_task }}
       FIREFOX_SCHEME: Fennec
       FIREFOX_CONFIGURATION: Fennec_Testing
       FIREFOX_TEST_PLAN: UnitTest
       FIREFOX_TEST_DESTINATION: platform=iOS Simulator,name=iPhone 16,OS=26.2
+      FIREFOX_BUILD_TASK: build-for-testing
 
     steps:
       - name: Print Mac machine info
@@ -91,76 +83,79 @@ jobs:
           XCODECACHEPROG_TOKEN: ${{ secrets.XCODECACHEPROG_TOKEN }}
         run: exec ./.github/scripts/install-xcodecacheprog.sh
 
-      - name: Full clean before uncached build
-        run: |
-          xcodebuild clean \
-            -project firefox-ios/Client.xcodeproj \
-            -scheme "${FIREFOX_SCHEME}" \
-            -destination "${FIREFOX_TEST_DESTINATION}" \
-            CODE_SIGN_IDENTITY= \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO
-
-          rm -rf "${HOME}/DerivedData"
-          rm -rf "${HOME}/Library/Developer/Xcode/DerivedData"
-
-      - name: Xcodebuild without cache
+      - name: build-for-testing without cache
         env:
           XCODE_XCCONFIG_FILE: ${{ github.workspace }}/.github/support/XcodeNoCache.xcconfig
         run: exec ./.github/scripts/run-firefox-build-for-testing.sh
 
-      - name: Clear local CAS cache before first cached build
-        if: ${{ inputs.cache_mode == 'local' && inputs.clear_local_cache_dir }}
-        run: rm -rf .ci/cas-build-cache
-
-      - name: Full clean before first cached build
+      - name: Remove build state
         run: |
-          xcodebuild clean \
-            -project firefox-ios/Client.xcodeproj \
-            -scheme "${FIREFOX_SCHEME}" \
-            -destination "${FIREFOX_TEST_DESTINATION}" \
-            CODE_SIGN_IDENTITY= \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO
-
           rm -rf "${HOME}/DerivedData"
           rm -rf "${HOME}/Library/Developer/Xcode/DerivedData"
+          test ! -e "${HOME}/DerivedData"
 
-      - name: Xcodebuild with selected cache
+      - name: build-for-testing without cache
+        env:
+          XCODE_XCCONFIG_FILE: ${{ github.workspace }}/.github/support/XcodeNoCache.xcconfig
+        run: exec ./.github/scripts/run-firefox-build-for-testing.sh
+
+      - name: test-without-building without cache
+        run: exec ./.github/scripts/run-firefox-test-without-building.sh
+
+      - name: Ensure cached build starts without local CAS data when requested
+        run: |
+          if [[ "${CACHE_MODE}" == "local" && "${CLEAR_LOCAL_CACHE_DIR}" == "true" ]]; then
+            rm -rf .ci/cas-build-cache
+          else
+            echo "Skipping local CAS cache directory cleanup"
+          fi
+
+      - name: Remove build state
+        run: |
+          rm -rf "${HOME}/DerivedData"
+          rm -rf "${HOME}/Library/Developer/Xcode/DerivedData"
+          test ! -e "${HOME}/DerivedData"
+
+      - name: build-for-testing with ${{ inputs.cache_mode }} cache
         env:
           XCODECACHEPROG_TOKEN: ${{ secrets.XCODECACHEPROG_TOKEN }}
         run: |
           if [[ "${CACHE_MODE}" == "remote" ]]; then
             exec ./.github/scripts/run-remote-cached-firefox-build.sh
+          else
+            exec ./.github/scripts/run-cas-cached-firefox-build.sh
           fi
 
-          exec ./.github/scripts/run-cas-cached-firefox-build.sh
-
-      - name: Show warmed local cache
+      - name: Show warmed cache
         if: ${{ inputs.cache_mode == 'local' }}
         run: |
           du -sh .ci/cas-build-cache
           find .ci/cas-build-cache -maxdepth 2 -type f | head -n 30
 
-      - name: Full clean before second cached build
+      - name: "`xcodebuildprog test` with ${{ inputs.cache_mode }} cache"
         run: |
-          xcodebuild clean \
-            -project firefox-ios/Client.xcodeproj \
-            -scheme "${FIREFOX_SCHEME}" \
-            -destination "${FIREFOX_TEST_DESTINATION}" \
-            CODE_SIGN_IDENTITY= \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO
+          DERIVED_DATA_PATH="${HOME}/DerivedData"
+          PRODUCTS_DIR="${DERIVED_DATA_PATH}/Build/Products"
+          XCTESTRUN_PATH="$(
+            find "${PRODUCTS_DIR}" \
+              -type f \
+              -name "${FIREFOX_SCHEME}_${FIREFOX_TEST_PLAN}_*.xctestrun" \
+              -print \
+              -quit
+          )"
 
-          rm -rf "${HOME}/DerivedData"
-          rm -rf "${HOME}/Library/Developer/Xcode/DerivedData"
-
-      - name: Xcodebuild with selected cache again
-        env:
-          XCODECACHEPROG_TOKEN: ${{ secrets.XCODECACHEPROG_TOKEN }}
-        run: |
-          if [[ "${CACHE_MODE}" == "remote" ]]; then
-            exec ./.github/scripts/run-remote-cached-firefox-build.sh
+          if [[ -z "${XCTESTRUN_PATH}" ]]; then
+            echo "No ${FIREFOX_SCHEME}_${FIREFOX_TEST_PLAN}_*.xctestrun file found under ${PRODUCTS_DIR}" >&2
+            echo "Available .xctestrun files:" >&2
+            find "${PRODUCTS_DIR}" -type f -name '*.xctestrun' -print >&2 || true
+            exit 1
           fi
 
-          exec ./.github/scripts/run-cas-cached-firefox-build.sh
+          XCTESTRUN_PATH="$(cd "$(dirname "${XCTESTRUN_PATH}")" && pwd)/$(basename "${XCTESTRUN_PATH}")"
+
+          cd firefox-ios
+
+          xcodecacheprog test \
+            --xctestrun "${XCTESTRUN_PATH}" \
+            --destination "${FIREFOX_TEST_DESTINATION}" \
+            --ignore-non-cacheable

@@ -1,4 +1,4 @@
-name: Remote cache build and test
+name: Xcode remote cache build and test
 
 on:
   workflow_dispatch:
@@ -11,7 +11,7 @@ env:
 
 jobs:
   remote-cache-build-test:
-    name: Build and test with remote cache
+    name: Build and test with xcode remote cache
     runs-on: macos-15
     env:
       FIREFOX_SCHEME: Fennec
