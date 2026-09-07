@@ -121,6 +121,16 @@ final class PageZoomSettingsViewModelTests: XCTestCase {
         XCTAssertEqual(subject.domainZoomLevels[1].host, "example2.com")
     }
 
+    func test_deleteZoomLevel_deletesFromStore() {
+        zoomStore.storeZoomLevels = domainZoomLevels
+        let subject = createSubject()
+
+        subject.deleteZoomLevel(at: IndexSet(integer: 0))
+
+        XCTAssertEqual(zoomStore.storeZoomLevels.count, 2)
+        XCTAssertFalse(zoomStore.storeZoomLevels.contains(where: { $0.host == "example.com" }))
+    }
+
     func test_deleteZoomLevel_postsNotification() {
         zoomStore.storeZoomLevels = domainZoomLevels
         let subject = createSubject()
