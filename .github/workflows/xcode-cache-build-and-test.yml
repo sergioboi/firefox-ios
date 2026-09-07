@@ -2,20 +2,6 @@ name: Xcode cache build and test
 
 on:
   workflow_dispatch:
-    inputs:
-      cache_mode:
-        description: Cache mode to test
-        type: choice
-        required: true
-        default: local
-        options:
-          - local
-          - remote
-      clear_local_cache_dir:
-        description: Clear .ci/cas-build-cache before cold local-cache builds
-        type: boolean
-        required: true
-        default: true
 
 env:
   xcode_path: /Applications/Xcode_26.2.app/Contents/Developer
@@ -25,8 +11,6 @@ jobs:
     name: Xcode cache build and test
     runs-on: macos-15
     env:
-      CACHE_MODE: ${{ inputs.cache_mode }}
-      CLEAR_LOCAL_CACHE_DIR: ${{ inputs.clear_local_cache_dir }}
       FIREFOX_SCHEME: Fennec
       FIREFOX_CONFIGURATION: Fennec_Testing
       FIREFOX_TEST_PLAN: UnitTest
@@ -74,14 +58,16 @@ jobs:
           ./bootstrap.sh focus
           ./bootstrap.sh firefox --force
 
-      - name: Install CASBuildCache
-        if: ${{ inputs.cache_mode == 'local' }}
-        run: exec ./.github/scripts/install-cas-build-cache.sh
-
       - name: Install xcodecacheprog
         env:
           XCODECACHEPROG_TOKEN: ${{ secrets.XCODECACHEPROG_TOKEN }}
         run: exec ./.github/scripts/install-xcodecacheprog.sh
+
+      - name: Remove build state
+        run: |
+          rm -rf "${HOME}/DerivedData"
+          rm -rf "${HOME}/Library/Developer/Xcode/DerivedData"
+          test ! -e "${HOME}/DerivedData"
 
       - name: build-for-testing without cache
         env:
@@ -102,37 +88,18 @@ jobs:
       - name: test-without-building without cache
         run: exec ./.github/scripts/run-firefox-test-without-building.sh
 
-      - name: Ensure cached build starts without local CAS data when requested
-        run: |
-          if [[ "${CACHE_MODE}" == "local" && "${CLEAR_LOCAL_CACHE_DIR}" == "true" ]]; then
-            rm -rf .ci/cas-build-cache
-          else
-            echo "Skipping local CAS cache directory cleanup"
-          fi
-
       - name: Remove build state
         run: |
           rm -rf "${HOME}/DerivedData"
           rm -rf "${HOME}/Library/Developer/Xcode/DerivedData"
           test ! -e "${HOME}/DerivedData"
 
-      - name: build-for-testing with ${{ inputs.cache_mode }} cache
+      - name: build-for-testing with remote cache
         env:
           XCODECACHEPROG_TOKEN: ${{ secrets.XCODECACHEPROG_TOKEN }}
-        run: |
-          if [[ "${CACHE_MODE}" == "remote" ]]; then
-            exec ./.github/scripts/run-remote-cached-firefox-build.sh
-          else
-            exec ./.github/scripts/run-cas-cached-firefox-build.sh
-          fi
+        run: exec ./.github/scripts/run-remote-cached-firefox-build.sh
 
-      - name: Show warmed cache
-        if: ${{ inputs.cache_mode == 'local' }}
-        run: |
-          du -sh .ci/cas-build-cache
-          find .ci/cas-build-cache -maxdepth 2 -type f | head -n 30
-
-      - name: "`xcodebuildprog test` with ${{ inputs.cache_mode }} cache"
+      - name: "`xcodebuildprog test` with remote cache"
         run: |
           DERIVED_DATA_PATH="${HOME}/DerivedData"
           PRODUCTS_DIR="${DERIVED_DATA_PATH}/Build/Products"

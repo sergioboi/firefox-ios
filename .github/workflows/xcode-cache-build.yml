@@ -3,14 +3,6 @@ name: Xcode cache build
 on:
   workflow_dispatch:
     inputs:
-      cache_mode:
-        description: Cache mode to use
-        type: choice
-        required: true
-        default: local
-        options:
-          - local
-          - remote
       build_task:
         description: Xcode build task to run
         type: choice
@@ -19,11 +11,6 @@ on:
         options:
           - build
           - build-for-testing
-      clear_local_cache_dir:
-        description: Clear .ci/cas-build-cache before the first cached build
-        type: boolean
-        required: true
-        default: true
 
 env:
   xcode_path: /Applications/Xcode_26.2.app/Contents/Developer
@@ -33,8 +20,6 @@ jobs:
     name: Xcode cache build
     runs-on: macos-15
     env:
-      CACHE_MODE: ${{ inputs.cache_mode }}
-      CLEAR_LOCAL_CACHE_DIR: ${{ inputs.clear_local_cache_dir }}
       FIREFOX_BUILD_TASK: ${{ inputs.build_task }}
       FIREFOX_SCHEME: Fennec
       FIREFOX_CONFIGURATION: Fennec_Testing
@@ -82,10 +67,6 @@ jobs:
           ./bootstrap.sh focus
           ./bootstrap.sh firefox --force
 
-      - name: Install CASBuildCache
-        if: ${{ inputs.cache_mode == 'local' }}
-        run: exec ./.github/scripts/install-cas-build-cache.sh
-
       - name: Install xcodecacheprog
         env:
           XCODECACHEPROG_TOKEN: ${{ secrets.XCODECACHEPROG_TOKEN }}
@@ -96,47 +77,27 @@ jobs:
           rm -rf "${HOME}/DerivedData"
           rm -rf "${HOME}/Library/Developer/Xcode/DerivedData"
 
-      - name: ${{ inputs.build_task }} without cache
+      - name: ${{ inputs.build_task }} without cache (first build)
         env:
           XCODE_XCCONFIG_FILE: ${{ github.workspace }}/.github/support/XcodeNoCache.xcconfig
         run: exec ./.github/scripts/run-firefox-build-for-testing.sh
 
-      - name: Clear local CAS cache before first cached build
-        if: ${{ inputs.cache_mode == 'local' && inputs.clear_local_cache_dir }}
-        run: rm -rf .ci/cas-build-cache
+      - name: Remove local build state
+        run: |
+          rm -rf "${HOME}/DerivedData"
+          rm -rf "${HOME}/Library/Developer/Xcode/DerivedData"
+
+      - name: ${{ inputs.build_task }} without cache (second build)
+        env:
+          XCODE_XCCONFIG_FILE: ${{ github.workspace }}/.github/support/XcodeNoCache.xcconfig
+        run: exec ./.github/scripts/run-firefox-build-for-testing.sh
 
       - name: Remove local build state
         run: |
           rm -rf "${HOME}/DerivedData"
           rm -rf "${HOME}/Library/Developer/Xcode/DerivedData"
 
-      - name: ${{ inputs.build_task }} with ${{ inputs.cache_mode }} cache
+      - name: ${{ inputs.build_task }} with remote cache
         env:
           XCODECACHEPROG_TOKEN: ${{ secrets.XCODECACHEPROG_TOKEN }}
-        run: |
-          if [[ "${CACHE_MODE}" == "remote" ]]; then
-            exec ./.github/scripts/run-remote-cached-firefox-build.sh
-          else
-            exec ./.github/scripts/run-cas-cached-firefox-build.sh
-          fi
-
-      - name: Show warmed local cache
-        if: ${{ inputs.cache_mode == 'local' }}
-        run: |
-          du -sh .ci/cas-build-cache
-          find .ci/cas-build-cache -maxdepth 2 -type f | head -n 30
-
-      - name: Remove local build state
-        run: |
-          rm -rf "${HOME}/DerivedData"
-          rm -rf "${HOME}/Library/Developer/Xcode/DerivedData"
-
-      - name: ${{ inputs.build_task }} with ${{ inputs.cache_mode }} cache again
-        env:
-          XCODECACHEPROG_TOKEN: ${{ secrets.XCODECACHEPROG_TOKEN }}
-        run: |
-          if [[ "${CACHE_MODE}" == "remote" ]]; then
-            exec ./.github/scripts/run-remote-cached-firefox-build.sh
-          else
-            exec ./.github/scripts/run-cas-cached-firefox-build.sh
-          fi
+        run: exec ./.github/scripts/run-remote-cached-firefox-build.sh
