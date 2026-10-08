@@ -178,6 +178,9 @@
 /* Title for the Ad Blocker toggle in the Browsing settings page. */
 "Settings.Browsing.AdBlocker.Title.v155" = "Blokowanie reklam";
 
+/* Title for the Background Audio toggle in the Browsing settings page. When enabled, audio from web pages continues playing after the app is backgrounded. */
+"Settings.Browsing.BackgroundAudio.Title.v156" = "Odtwarzanie dźwięku w tle";
+
 /* Title for the Block Ads toggle in the Browsing settings page. When enabled, the app blocks advertisements. */
 "Settings.Browsing.BlockAds.Title.v153" = "Blokowanie reklam";
 
@@ -275,7 +278,7 @@
 "Settings.Search.EnginesSuggestions.Title.v124" = "Podpowiedzi wyszukiwarek";
 
 /* In the Search settings, this is the description that describes the Google Lens feature */
-"Settings.Search.GoogleLens.Description.v153" = "Wysyłanie obrazów do Google, aby wyszukać.";
+"Settings.Search.GoogleLens.Description.v153" = "Wysyłanie obrazów do Google, by wyszukać.";
 
 /* In the Search settings, this is the disclaimer underneath the Google Lens settings toggle that explains the conditions required for Google Lens to be available. */
 "Settings.Search.GoogleLens.Footnote.v153" = "Dostępne tylko wtedy, gdy wyszukiwarka Google jest włączona i w danej chwili aktywna.";
@@ -425,7 +428,7 @@
 "Settings.Translation.Title.v145" = "Tłumaczenie";
 
 /* Footer text below the enable toggle in the Translation settings screen. */
-"Settings.Translation.ToggleFooter.v151" = "Wyłącz, aby usunąć tłumaczenie z paska narzędzi i menu.";
+"Settings.Translation.ToggleFooter.v151" = "Wyłącz, by usunąć tłumaczenie z paska narzędzi i menu.";
 
 /* This is the title for the setting that toggles the Translation feature that allows users to translate web pages under the Translation settings section. */
 "Settings.Translation.ToggleTitle.v145" = "Tłumaczenia";
