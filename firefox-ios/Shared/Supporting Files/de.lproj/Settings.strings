@@ -107,7 +107,7 @@
 "Settings.AIControls.BlockAIEnhancementsTitle.v151" = "KI-Verbesserungen blockieren";
 
 /* In the AI Controls settings, this is the text that appears when you have turned on the Block AI Enhancements toggle */
-"Settings.AIControls.BlockedInformation.v151" = "Neue und aktuelle KI-Verbesserungen werden standardmäßig blockiert. Blockieren Sie im Folgenden bestimmte Funktionen.";
+"Settings.AIControls.BlockedInformation.v151" = "Neue und aktuelle KI-Verbesserungen werden standardmäßig blockiert. Heben Sie im Folgenden die Blockierung bestimmter Funktionen auf.";
 
 /* This is the text for the link in the Header Card under the AI Controls settings section that links to more information. */
 "Settings.AIControls.HeaderCard.Link.v151" = "Weitere Informationen";
@@ -170,13 +170,16 @@
 "Settings.Autoplay.SettingsTitle.v137" = "Automatische Wiedergabe";
 
 /* Description text for the Ad Blocker toggle in the Browsing settings page, explaining its purpose and a tip for troubleshooting broken sites. */
-"Settings.Browsing.AdBlocker.Description.v155" = "Reduziert Werbung und werbebezogene Tracker. Wenn eine Website beschädigt aussieht, versuchen Sie, dies zu deaktivieren.";
+"Settings.Browsing.AdBlocker.Description.v155" = "Reduziert Werbung und werbebezogene Tracker. Wenn eine Website fehlerhaft aussieht, versuchen Sie, dies zu deaktivieren.";
 
 /* Link text below the Ad Blocker toggle description that opens a support page with more information. */
 "Settings.Browsing.AdBlocker.LearnMore.v155" = "Weitere Informationen";
 
 /* Title for the Ad Blocker toggle in the Browsing settings page. */
 "Settings.Browsing.AdBlocker.Title.v155" = "Werbeblocker";
+
+/* Title for the Background Audio toggle in the Browsing settings page. When enabled, audio from web pages continues playing after the app is backgrounded. */
+"Settings.Browsing.BackgroundAudio.Title.v156" = "Hintergrundaudio";
 
 /* Title for the Block Ads toggle in the Browsing settings page. When enabled, the app blocks advertisements. */
 "Settings.Browsing.BlockAds.Title.v153" = "Werbung blockieren";
@@ -320,7 +323,7 @@
 "Settings.Search.Suggest.ShowNonSponsoredSuggestions.Title.v124.v2" = "Vorschläge aus dem Internet";
 
 /* In the Search page of the Settings menu, the description for the setting to enable Suggestions from sponsors. %@ is the app name (e.g. Firefox). - Firefox. */
-"Settings.Search.Suggest.ShowSponsoredSuggestions.Description.v124" = "Unterstützen Sie %@ mit gelegentlich gesponserten Vorschlägen";
+"Settings.Search.Suggest.ShowSponsoredSuggestions.Description.v124" = "Unterstützen Sie %@ mit gelegentlichen gesponserten Vorschlägen";
 
 /* In the Search page of the Settings menu, the title for the setting to enable Suggestions from sponsors. */
 "Settings.Search.Suggest.ShowSponsoredSuggestions.Title.v124" = "Vorschläge von Sponsoren";
@@ -344,7 +347,7 @@
 "Settings.Studies.Title.v148" = "Funktionsstudien erlauben";
 
 /* This is the footer text for the setting that toggles the Summarize feature under the Summarize settings section. */
-"Settings.Summarize.FooterTitle.v142" = "Bietet Zugriff auf Zusammenfassungsseiten.";
+"Settings.Summarize.FooterTitle.v142" = "Bietet Zugriff auf das Zusammenfassen von Seiten.";
 
 /* This is the footer text for the gestures features under the Summarize settings section. */
 "Settings.Summarize.GesturesSection.FooterTitle.v142" = "Schütteln Sie Ihr Gerät von einer Seite zur anderen, um eine Seite zusammenzufassen.";

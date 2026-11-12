@@ -104,7 +104,7 @@
 "Settings.AIControls.BlockAIEnhancementsLink.v151" = "იხილეთ, რა არის და რას მოიცავს";
 
 /* This is the title for the setting that toggles whether to block AI enhancements under the AI Controls settings section. */
-"Settings.AIControls.BlockAIEnhancementsTitle.v151" = "შეიზღუდოს AI-შესაძლებლობები";
+"Settings.AIControls.BlockAIEnhancementsTitle.v151" = "შეიზღუდოს ხელგონის შესაძლებლობები";
 
 /* In the AI Controls settings, this is the text that appears when you have turned on the Block AI Enhancements toggle */
 "Settings.AIControls.BlockedInformation.v151" = "ახალი ან არსებული AI-შესაძლებლობები შეიზღუდება ნაგულისხმევად. ცალკეულ შესაძლებლობას შეზღუდვა მოხსენით ქვემოთ.";
@@ -177,6 +177,9 @@
 
 /* Title for the Ad Blocker toggle in the Browsing settings page. */
 "Settings.Browsing.AdBlocker.Title.v155" = "რეკლამის შემზღუდავი";
+
+/* Title for the Background Audio toggle in the Browsing settings page. When enabled, audio from web pages continues playing after the app is backgrounded. */
+"Settings.Browsing.BackgroundAudio.Title.v156" = "ხმის ფონურად გაშვება";
 
 /* Title for the Block Ads toggle in the Browsing settings page. When enabled, the app blocks advertisements. */
 "Settings.Browsing.BlockAds.Title.v153" = "რეკლამების შეზღუდვა";

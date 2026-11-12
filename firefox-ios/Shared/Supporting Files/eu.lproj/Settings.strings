@@ -74,7 +74,7 @@
 "Settings.AIControls.AIPoweredFeaturesSection.BlockedStatus.v151" = "Blokeatuta";
 
 /* In the AI Controls settings, in the AI powered features section, this is the text that what the blocked status means. The content between the ** ** is bolded. Please do not remove these in translation. */
-"Settings.AIControls.AIPoweredFeaturesSection.BlockedStatusDescriptionV2.v151" = "**Blokeatuta**: eginbidea ez duzu ikusiko eta ezingo duzu erabili. Gailu barruko AArako, deskargatutako modeloak kendu egingo dira.";
+"Settings.AIControls.AIPoweredFeaturesSection.BlockedStatusDescriptionV2.v151" = "**Blokeatuta**: eginbidea ez duzu ikusiko eta ezingo duzu erabili. Gailu barruko AArako, deskargatutako ereduak kendu egingo dira.";
 
 /* In the AI Controls settings, in the AI powered features section, this is the message that describes the pages summaries feature */
 "Settings.AIControls.AIPoweredFeaturesSection.PageSummariesSection.Message.v151" = "Orriak eta laburpenak inoiz ez dira gordetzen.";
@@ -177,6 +177,9 @@
 
 /* Title for the Ad Blocker toggle in the Browsing settings page. */
 "Settings.Browsing.AdBlocker.Title.v155" = "Iragarki blokeatzailea";
+
+/* Title for the Background Audio toggle in the Browsing settings page. When enabled, audio from web pages continues playing after the app is backgrounded. */
+"Settings.Browsing.BackgroundAudio.Title.v156" = "Atzeko planoko audioa";
 
 /* Title for the Block Ads toggle in the Browsing settings page. When enabled, the app blocks advertisements. */
 "Settings.Browsing.BlockAds.Title.v153" = "Blokeatu iragarkiak";
