@@ -98,13 +98,13 @@
 "Settings.AIControls.AIPoweredFeaturesSection.TranslationSection.Title.v151" = "Preklad";
 
 /* This is the description for the setting that toggles whether to block AI enhancements under the AI Controls settings section. %@ is the app name (e.g. Firefox). */
-"Settings.AIControls.BlockAIEnhancementsDescription.v151" = "Blokovanie znamená, že vo %@e neuvidíte nové ani aktuálne vylepšenia pomocou umelej inteligencie, ani vyskakovacie okná o nich.";
+"Settings.AIControls.BlockAIEnhancementsDescription.v151" = "Ak zapnete blokovanie, %@ vám nebude zobrazovať existujúce ani nové funkcie využívajúce umelú inteligenciu. Nebudú sa zobrazovať ani kontextové okná, ktoré vás na tieto funkcie upozorňujú.";
 
 /* In the AI Controls settings, this is the text for the link that takes the user more information on AI features. */
 "Settings.AIControls.BlockAIEnhancementsLink.v151" = "Pozrite sa, čo je a čo nie je zahrnuté";
 
 /* This is the title for the setting that toggles whether to block AI enhancements under the AI Controls settings section. */
-"Settings.AIControls.BlockAIEnhancementsTitle.v151" = "Blokovať vylepšenia pomocou AI";
+"Settings.AIControls.BlockAIEnhancementsTitle.v151" = "Blokovať funkcie využívajúce umelú inteligenciu";
 
 /* In the AI Controls settings, this is the text that appears when you have turned on the Block AI Enhancements toggle */
 "Settings.AIControls.BlockedInformation.v151" = "Nové a aktuálne vylepšenia umelej inteligencie sú štandardne blokované. Nižšie nájdete možnosť odblokovania konkrétnych funkcií.";
@@ -119,7 +119,7 @@
 "Settings.AIControls.HeaderCard.Title.v151" = "Vo %@e máte vždy na výber";
 
 /* In the settings menu, in the General section, this is the title for the AI Controls settings section */
-"Settings.AIControls.Title.v150" = "Nastavenia AI";
+"Settings.AIControls.Title.v150" = "Umelá inteligencia";
 
 /* Section description in Appearance settings for middle button configuration of the bottom toolbar. */
 "Settings.Appearance.NavigationToolbar.Description.v145" = "Zmení tlačidlo v strede panela s nástrojmi.";
@@ -178,6 +178,9 @@
 /* Title for the Ad Blocker toggle in the Browsing settings page. */
 "Settings.Browsing.AdBlocker.Title.v155" = "Blokovač reklám";
 
+/* Title for the Background Audio toggle in the Browsing settings page. When enabled, audio from web pages continues playing after the app is backgrounded. */
+"Settings.Browsing.BackgroundAudio.Title.v156" = "Prehrávať zvuk na pozadí";
+
 /* Title for the Block Ads toggle in the Browsing settings page. When enabled, the app blocks advertisements. */
 "Settings.Browsing.BlockAds.Title.v153" = "Blokovať reklamy";
 
@@ -203,7 +206,7 @@
 "Settings.CrashReports.Message.v136" = "Toto nám pomáha diagnostikovať a riešiť problémy s prehliadačom.";
 
 /* On the Settings screen, this is the title text for a toggle which controls automatically sending crash reports. */
-"Settings.CrashReports.Title.v135" = "Automaticky odosielať správy o zlyhaní";
+"Settings.CrashReports.Title.v135" = "Automaticky odosielať hlásenia o zlyhaní";
 
 /* Title for a link that explains how Mozilla send daily usage ping. */
 "Settings.DailyUsagePing.Link.v136" = "Ďalšie informácie";
@@ -212,7 +215,7 @@
 "Settings.DailyUsagePing.Message.v135" = "Toto pomáha spoločnosti %@ odhadnúť počet aktívnych používateľov.";
 
 /* On the Settings screen, this is the title text for a toggle which controls automatically sending daily usage ping. */
-"Settings.DailyUsagePing.Title.v135" = "Ping denného používania";
+"Settings.DailyUsagePing.Title.v135" = "Denný signál o používaní";
 
 /* Title displayed in header of the FxA settings panel. */
 "Settings.FxA.Title.v119" = "Účet";
@@ -254,7 +257,7 @@
 "Settings.Rollouts.Message.v148" = "%@ vylepší funkcie, výkon a stabilitu medzi aktualizáciami. Zmeny sa aplikujú na diaľku.";
 
 /* Label used as a toggle item in Settings. When this is off, the user is opting out of all rollouts. */
-"Settings.Rollouts.Title.v148" = "Povoliť vzdialené vylepšenia";
+"Settings.Rollouts.Title.v148" = "Povoliť vylepšenia na diaľku";
 
 /* In the settings menu, in the General section, this is the title for the option that allows user to disable the autohide feature of the tab and address bar. */
 "Settings.ScrollToHideTabAndAddressBar.Title.v138" = "Karty a panel s adresou skrývať rolovaním";
@@ -374,7 +377,7 @@
 "Settings.TechnicalData.Message.v136" = "Údaje o vašom zariadení, konfigurácii hardvéru a používaní nám pomáhajú zlepšovať funkcie, výkon a stabilitu %@u.";
 
 /* On the Settings screen, this is the title text for a toggle which controls sending technical and interaction data. */
-"Settings.TechnicalData.Title.v136" = "Odosielať technické údaje a údaje o interakciách";
+"Settings.TechnicalData.Title.v136" = "Odosielať technické údaje a údaje o používaní";
 
 /* Terms of Use settings section title */
 "Settings.TermsOfUse.Title.v137" = "Podmienky používania";

@@ -113,7 +113,7 @@
 "Settings.AIControls.HeaderCard.Link.v151" = "Més informació";
 
 /* This is the message for the Header Card under the AI Controls settings section. */
-"Settings.AIControls.HeaderCard.Message.v151" = "Això inclou si s’han d'utilitzar o no les funcions millorades amb IA.";
+"Settings.AIControls.HeaderCard.Message.v151" = "Això inclou si s’han d’utilitzar o no les funcions millorades amb IA.";
 
 /* This is the title for the Header Card under the AI Controls settings section. %@ is the app name (e.g. Firefox). */
 "Settings.AIControls.HeaderCard.Title.v151" = "Amb el %@, sempre teniu la llibertat de decidir";
@@ -169,6 +169,18 @@
 /* In the settings menu, this label indicates that there is an option of customizing the Autoplay behaviour. */
 "Settings.Autoplay.SettingsTitle.v137" = "Reproducció automàtica";
 
+/* Description text for the Ad Blocker toggle in the Browsing settings page, explaining its purpose and a tip for troubleshooting broken sites. */
+"Settings.Browsing.AdBlocker.Description.v155" = "Redueix els anuncis i els elements de seguiment relacionats amb anuncis. Si un lloc sembla que no funciona, proveu de desactivar-ho.";
+
+/* Link text below the Ad Blocker toggle description that opens a support page with more information. */
+"Settings.Browsing.AdBlocker.LearnMore.v155" = "Més informació";
+
+/* Title for the Ad Blocker toggle in the Browsing settings page. */
+"Settings.Browsing.AdBlocker.Title.v155" = "Bloqueig de publicitat";
+
+/* Title for the Background Audio toggle in the Browsing settings page. When enabled, audio from web pages continues playing after the app is backgrounded. */
+"Settings.Browsing.BackgroundAudio.Title.v156" = "Àudio en segon pla";
+
 /* Title for the Block Ads toggle in the Browsing settings page. When enabled, the app blocks advertisements. */
 "Settings.Browsing.BlockAds.Title.v153" = "Bloca la publicitat";
 
@@ -208,8 +220,11 @@
 /* Title displayed in header of the FxA settings panel. */
 "Settings.FxA.Title.v119" = "Compte";
 
+/* In the settings menu, on the Firefox wallpaper customization screen, this is the brand title for the section containing the Wrexham AFC wallpapers. */
+"Settings.Home.Option.Wallpaper.WrexhamBrandTitle.v155" = "Wrexham A.F.C.";
+
 /* This is the description for the setting that toggles Sync related notifications in the settings menu under the Notifications section. */
-"Settings.Notifications.SyncNotificationsStatus.v112" = "S'ha d'activar per a rebre pestanyes i per a notificar-vos quan inicieu la sessió en un altre dispositiu.";
+"Settings.Notifications.SyncNotificationsStatus.v112" = "S’ha d’activar per a rebre pestanyes i per a notificar-vos quan inicieu la sessió en un altre dispositiu.";
 
 /* This is the title for the setting that toggles Sync related notifications in the settings menu under the Notifications section. */
 "Settings.Notifications.SyncNotificationsTitle.v112" = "Sincronització";
@@ -284,7 +299,7 @@
 "Settings.Search.ShowSuggestions.v121" = "Mostra suggeriments de cerca";
 
 /* In the Search page of the Settings menu, the title for the Firefox Suggest settings section. */
-"Settings.Search.Suggest.AddressBarSetting.Title.v124" = "Barra d'adreces - Suggeriments del Firefox";
+"Settings.Search.Suggest.AddressBarSetting.Title.v124" = "Barra d’adreces - Suggeriments del Firefox";
 
 /* In the search page of the Settings menu, the title for the link to the SUMO Page about Firefox Suggest. */
 "Settings.Search.Suggest.LearnAboutSuggestions.v124" = "Més informació sobre els suggeriments del Firefox";
@@ -296,7 +311,7 @@
 "Settings.Search.Suggest.SearchBrowsingHistory.Title.v124" = "Cerca en l’historial de navegació";
 
 /* In the Search page of the Settings menu, the title for the setting to enable search bookmarks. */
-"Settings.Search.Suggest.SearchSearchBookmarks.Title.v124" = "Cerca en les adreces d'interès";
+"Settings.Search.Suggest.SearchSearchBookmarks.Title.v124" = "Cerca en les adreces d’interès";
 
 /* In the Search page of the Settings menu, the title for the setting to enable synced tabs. */
 "Settings.Search.Suggest.SearchSyncedTabs.Title.v124" = "Cerca en les pestanyes sincronitzades";
